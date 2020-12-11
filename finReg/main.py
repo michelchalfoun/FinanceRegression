@@ -1,16 +1,9 @@
-# This is a sample Python script.
+import requests
+import json
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+apiKey = "d64e47f7b3b94ffa5e7ebe1ba396ceb0"
 
+financial_ratios =  requests.get(f"https://financialmodelingprep.com/api/v3/financial-ratios/AAPL?apikey=" + apiKey)
+financial_ratios = financial_ratios.json()
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+print(financial_ratios)
