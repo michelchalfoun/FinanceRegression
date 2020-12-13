@@ -19,5 +19,3 @@ def plotRatios(ticker, profitabilityRatios):
         plt.title("Profitability ratios of " + ticker + " per year")
         plt.legend(loc='upper right')
     plt.show()
-
-plotRatios("AAPL", ["grossProfitMargin", "netProfitMargin", "effectiveTaxRate"])
