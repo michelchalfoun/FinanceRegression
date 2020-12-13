@@ -1,3 +1,9 @@
+# Python
 finReg/venv
+finReg/__pycache__
+
+# IDEs
 finReg/.idea
+finReg/.vscode
+
 .DS_Store
