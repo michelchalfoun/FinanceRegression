@@ -18,14 +18,13 @@ def getRatios(ticker, profitabilityRatio, apiKey):
 
     financial_ratios =  requests.get(f"https://financialmodelingprep.com/api/v3/financial-ratios/" + ticker +"?apikey=" + apiKey)
     financial_ratios = financial_ratios.json()
-    years = [None] * len(financial_ratios['ratios'])
-    ratios = [None] * len(financial_ratios['ratios'])
+    years = []
+    ratios = []
 
-    counter = 0
     for i in reversed(range(len(financial_ratios['ratios']))):
-        years[counter] = int(financial_ratios['ratios'][i]['date'][0:4])
-        ratios[counter] = float(financial_ratios['ratios'][i]['profitabilityIndicatorRatios'][profitabilityRatio])
-        counter = counter + 1
+        if (financial_ratios['ratios'][i]['profitabilityIndicatorRatios'][profitabilityRatio] != ''):
+            years.append(int(financial_ratios['ratios'][i]['date'][0:4]))
+            ratios.append(float(financial_ratios['ratios'][i]['profitabilityIndicatorRatios'][profitabilityRatio]))
     
     return years, ratios
 
@@ -34,13 +33,11 @@ def getAllRatios(ticker, apiKey):
 
     financial_ratios =  requests.get(f"https://financialmodelingprep.com/api/v3/financial-ratios/" + ticker +"?apikey=" + apiKey)
     financial_ratios = financial_ratios.json()
-    years = [None] * len(financial_ratios['ratios'])
-    profitRatios = [None] * len(financial_ratios['ratios'])
+    years = []
+    profitRatios = []
 
-    counter = 0
     for i in reversed(range(len(financial_ratios['ratios']))):
-        years[counter] = financial_ratios['ratios'][i]['date'][0:4]
-        profitRatios[counter] = financial_ratios['ratios'][i]['profitabilityIndicatorRatios']
-        counter = counter + 1
+        years.append(financial_ratios['ratios'][i]['date'][0:4])
+        profitRatios.append(financial_ratios['ratios'][i]['profitabilityIndicatorRatios'])
     
     return years, profitRatios
