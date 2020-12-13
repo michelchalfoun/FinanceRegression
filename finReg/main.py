@@ -7,3 +7,5 @@ financial_ratios =  requests.get(f"https://financialmodelingprep.com/api/v3/fina
 financial_ratios = financial_ratios.json()
 
 print(financial_ratios)
+
+# priceEarningsRatio, netProfitMargin, inventoryTurnover, returnOnEquity, quickRatio
