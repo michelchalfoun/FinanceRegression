@@ -37,7 +37,7 @@ def plotLinSquareRegression(ticker, profitabilityRatios, visualizeWithPoints:boo
         # Compute individual points of the regression for plotting
         xn = np.linspace(years[0], years[len(years) - 1], 200)
         yn = np.polyval([m, c], xn)
-        plt.plot(xn, yn, label=(i + " lin. squares regression"))
+        plt.plot(xn, yn, label=(i + " LS regression"))
         
         # Shows the individual points before the regression if requested
         if(visualizeWithPoints):
