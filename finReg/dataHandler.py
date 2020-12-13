@@ -1,8 +1,6 @@
 import requests
 import json
 
-apiKey = "d64e47f7b3b94ffa5e7ebe1ba396ceb0"
-
 # getRatio returns a specific profitability ratio in a specific year
 def getRatio(ticker, profitabilityRatio, year, apiKey):
 
@@ -25,8 +23,8 @@ def getRatios(ticker, profitabilityRatio, apiKey):
 
     counter = 0
     for i in reversed(range(len(financial_ratios['ratios']))):
-        years[counter] = financial_ratios['ratios'][i]['date'][0:4]
-        ratios[counter] = financial_ratios['ratios'][i]['profitabilityIndicatorRatios'][profitabilityRatio]
+        years[counter] = int(financial_ratios['ratios'][i]['date'][0:4])
+        ratios[counter] = float(financial_ratios['ratios'][i]['profitabilityIndicatorRatios'][profitabilityRatio])
         counter = counter + 1
     
     return years, ratios
