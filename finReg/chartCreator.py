@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 import json
 import dataHandler as dh
 
@@ -7,7 +8,7 @@ with open("config.json") as json_data_file:
     data = json.load(json_data_file)
     apiKey = data['FinancialModeling']['apiKey']
 
-# Plot a one or multiple ratios given an array of ratios
+# Plot one or multiple ratios given an array of ratios
 def plotRatios(ticker, profitabilityRatios):
     for i in profitabilityRatios:
         years, ratios = dh.getRatios(ticker, i, apiKey)
@@ -17,5 +18,23 @@ def plotRatios(ticker, profitabilityRatios):
         plt.title(profitabilityRatios[0] + " of " + ticker + " per year")
     else:
         plt.title("Profitability ratios of " + ticker + " per year")
+        plt.legend(loc='upper right')
+    plt.show()
+
+# Plot the regressions of one or multiple ratios given an array of ratios
+def plotLinSquareRegression(ticker, profitabilityRatios, visualizeWithPoints:bool):
+    for i in profitabilityRatios:
+        years, ratios = dh.getRatios(ticker, i, apiKey)
+        m, c = np.polyfit(years, ratios, 1)
+        xn = np.linspace(years[0], years[len(years) - 1], 200)
+        yn = np.polyval([m, c], xn)
+        plt.plot(xn, yn, label=(i + " lin. squares regression"))
+        if(visualizeWithPoints):
+            plt.plot(years, ratios, label=i)
+
+    if (len(profitabilityRatios) == 1):
+        plt.title(profitabilityRatios[0] + " least squares fit of " + ticker + " per year")
+    else:
+        plt.title("Profitability ratios least squares fit of " + ticker + " per year")
         plt.legend(loc='upper right')
     plt.show()
