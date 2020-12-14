@@ -63,18 +63,21 @@ def compareRatioSlopes(ticker, firstRatio:str, otherRatios):
     print("Ticker:", ticker)
     firstYears, firstRatios = dh.getRatios(ticker, firstRatio, apiKey)
     if (firstYears == []):
-        print("No data for ratio:", firstRatio)
+        # print("No data for ratio:", firstRatio)
+        print("No data for first ratio:", firstRatio)
+        return
     else:
         m1, c1 = np.polyfit(firstYears, firstRatios, 1)
-        print("The slope of the first ratio is", firstRatio, "is :", m1)
+        # print("The slope of the", firstRatio, "is:", m1)
         difference = float(input("What range would you like? "))
-        comparedRatios = []
+        comparedRatios = [firstRatio]
 
         for i in otherRatios:
             years, ratios = dh.getRatios(ticker, i, apiKey)
 
             if (years == []):
-                print("No data for ratio:", i)
+                # print("No data for ratio:", i)
+                continue
             else:
                 # Find coefficients of the Least Squares Regression
                 m2, c2 = np.polyfit(years, ratios, 1)
@@ -85,7 +88,7 @@ def compareRatioSlopes(ticker, firstRatio:str, otherRatios):
                 minus = m1 - difference
                 if (minus < m2 < plus):
                     if (np.sign(m2) == np.sign(m1)):
-                        print("The slope of the other ratio is", i, "is :", m2)
+                        print("The slope of the", i, "is:", m2)
                         comparedRatios.append(i)
 
         return comparedRatios
