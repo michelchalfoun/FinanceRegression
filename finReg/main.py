@@ -1,34 +1,16 @@
 import chartCreator as cc
 import dataHandler as dh
+import dataComparator as dc
 import json
 
-ratio = "dividendPaidAndCapexCoverageRatio"
-
 ticker = "AAPL"
-ratios = ["grossProfitMargin", ratio]
-# cc.plotLinSquareRegression(ticker, ratios, False, False)
+basisRatio = 'grossProfitMargin'
+ratioNames = dh.getRatioNames("d64e47f7b3b94ffa5e7ebe1ba396ceb0")
 
-ticker = "AMZN"
-ratios = ["grossProfitMargin", ratio]
-# cc.plotLinSquareRegression(ticker, ratios, False, False)
+ratioNames.remove(basisRatio)
+foundRatios = dc.compareRatioSlopes(ticker, basisRatio, ratioNames) 
 
-file = open('/Users/masenbeliveau/Desktop/FinanceRegression/finReg/test-ratios.json')
-data = json.load(file)
-file.close();
+ratiosToPlot = foundRatios
+ratiosToPlot.insert(0, basisRatio) 
 
-ratio_names = data[11]
-
-first_ratio = "grossProfitMargin"
-otherRatios = []
-
-for (k) in ratio_names:
-    if (k == "symbol" or k == "date" or k == first_ratio):
-        continue
-    otherRatios.append(k)
-
-comparedRatios = cc.compareRatioSlopes("AMZN", first_ratio, otherRatios)
-# print(comparedRatios)
-cc.plotLinSquareRegression("AMZN", comparedRatios, False, True)
-# for i in comparedRatios:
-#     temp_ratio = [first_ratio, i]
-#     cc.plotLinSquareRegression("AAPL", temp_ratio, False, True)
+cc.plotLinSquareRegression(ticker , ratiosToPlot, False, True)
