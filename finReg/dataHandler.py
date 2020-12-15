@@ -66,3 +66,19 @@ def getAllRatios(ticker, apiKey):
         profitRatios.append(editedRatioDict)
     
     return years, profitRatios
+
+def getRatioNames(apiKey):
+    demoTicker = "AAPL"
+    financial_ratios =  requests.get(f"https://financialmodelingprep.com/api/v3/ratios/" + demoTicker + "?period=quarter&apikey=" + apiKey)
+    financial_ratios = financial_ratios.json()
+    
+    ratioList = financial_ratios[0]
+    del ratioList['symbol']
+    del ratioList['date']
+
+    ratioNames = []
+
+    for i in ratioList:
+        ratioNames.append(i)
+    
+    return ratioNames
