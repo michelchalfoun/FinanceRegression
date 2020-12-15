@@ -11,4 +11,4 @@ foundRatios = dc.compareRatioSlopes(ticker, basisRatio)
 ratiosToPlot = foundRatios
 ratiosToPlot.insert(0, basisRatio) 
 
-cc.plotLSquareRegression(ticker , ratiosToPlot, True)
+cc.plotLSquareRegression(ticker , ratiosToPlot, False)
