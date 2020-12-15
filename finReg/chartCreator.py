@@ -42,8 +42,6 @@ def plotLinSquareRegression(ticker, profitabilityRatios, visualizeWithPoints:boo
             yn = np.polyval([m, c], xn)
             plt.plot(xn, yn, label=(i + " LS regression"))
 
-            print("For", ticker, "the slope of the", i, "is :", m)
-
             # Shows the individual points before the regression if requested
             if(visualizeWithPoints):
                 plt.plot(years, ratios, label=i)
@@ -53,42 +51,7 @@ def plotLinSquareRegression(ticker, profitabilityRatios, visualizeWithPoints:boo
         plt.title(profitabilityRatios[0] + " least squares fit of " + ticker + " per year")
     else:
         plt.title("Profitability ratios least squares fit of " + ticker + " per year")
-        plt.legend(loc='upper right')
+        plt.legend(bbox_to_anchor=(1, 1), loc='upper left', ncol=1)
 
     if (plot):
         plt.show()
-
-
-def compareRatioSlopes(ticker, firstRatio:str, otherRatios):
-    print("Ticker:", ticker)
-    firstYears, firstRatios = dh.getRatios(ticker, firstRatio, apiKey)
-    if (firstYears == []):
-        # print("No data for ratio:", firstRatio)
-        print("No data for first ratio:", firstRatio)
-        return
-    else:
-        m1, c1 = np.polyfit(firstYears, firstRatios, 1)
-        # print("The slope of the", firstRatio, "is:", m1)
-        difference = float(input("What range would you like? "))
-        comparedRatios = [firstRatio]
-
-        for i in otherRatios:
-            years, ratios = dh.getRatios(ticker, i, apiKey)
-
-            if (years == []):
-                # print("No data for ratio:", i)
-                continue
-            else:
-                # Find coefficients of the Least Squares Regression
-                m2, c2 = np.polyfit(years, ratios, 1)
-
-                # Compute individual points of the regression for plotting
-
-                plus = m1 + difference
-                minus = m1 - difference
-                if (minus < m2 < plus):
-                    if (np.sign(m2) == np.sign(m1)):
-                        print("The slope of the", i, "is:", m2)
-                        comparedRatios.append(i)
-
-        return comparedRatios
