@@ -7,10 +7,12 @@ with open("config.json") as json_data_file:
     data = json.load(json_data_file)
     apiKey = data['FinancialModeling']['apiKey']
 
-def compareRatioSlopes(ticker, basisRatio, comparableRatios):
+def compareRatioSlopes(ticker, basisRatio):
     
     # Get data needed for the basis ratio
     basisYears, basisRatios = dh.getRatios(ticker, basisRatio, apiKey)
+    ratioNames = dh.getRatioNames(apiKey)
+    ratioNames.remove(basisRatio)
 
     # Checks if data was found for this ratio
     if (basisYears == []):
@@ -24,7 +26,7 @@ def compareRatioSlopes(ticker, basisRatio, comparableRatios):
         difference = float(input("Enter the maximum difference allowed for slope comparison: "))
         foundRatios = []
 
-        for i in comparableRatios:
+        for i in ratioNames:
 
             # Gets the data needed for each ratio in order to compare
             years, ratios = dh.getRatios(ticker, i, apiKey)
