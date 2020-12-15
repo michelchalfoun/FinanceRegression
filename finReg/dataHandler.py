@@ -1,6 +1,23 @@
 import requests
 import json
 
+# Gets all the ratios that can be compared.
+def getRatioNames(apiKey):
+    demoTicker = "AAPL"
+    financial_ratios =  requests.get(f"https://financialmodelingprep.com/api/v3/ratios/" + demoTicker + "?period=quarter&apikey=" + apiKey)
+    financial_ratios = financial_ratios.json()
+    
+    ratioList = financial_ratios[0]
+    del ratioList['symbol']
+    del ratioList['date']
+
+    ratioNames = []
+
+    for i in ratioList:
+        ratioNames.append(i)
+    
+    return ratioNames
+
 # getRatio returns a specific ratio in a specific year and quarter
 def getRatio(ticker, ratio, year, quarter, apiKey):
 
@@ -67,18 +84,3 @@ def getAllRatios(ticker, apiKey):
     
     return years, profitRatios
 
-def getRatioNames(apiKey):
-    demoTicker = "AAPL"
-    financial_ratios =  requests.get(f"https://financialmodelingprep.com/api/v3/ratios/" + demoTicker + "?period=quarter&apikey=" + apiKey)
-    financial_ratios = financial_ratios.json()
-    
-    ratioList = financial_ratios[0]
-    del ratioList['symbol']
-    del ratioList['date']
-
-    ratioNames = []
-
-    for i in ratioList:
-        ratioNames.append(i)
-    
-    return ratioNames
