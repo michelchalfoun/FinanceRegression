@@ -25,7 +25,7 @@ def plotRatios(ticker, profitabilityRatios):
     plt.show()
 
 # Plot the regressions of one or multiple ratios given an array of ratios
-def plotLSquareRegression(ticker, profitabilityRatios, visualizeWithPoints:bool, plot:bool):
+def plotLSquareRegression(ticker, profitabilityRatios, visualizeWithPoints:bool):
     
     # Computes Least Squares Regression for the given ratios
     for i in profitabilityRatios:
@@ -53,5 +53,4 @@ def plotLSquareRegression(ticker, profitabilityRatios, visualizeWithPoints:bool,
         plt.title("Profitability ratios least squares fit of " + ticker + " per year")
         plt.legend(bbox_to_anchor=(1, 1), loc='upper left', ncol=1)
 
-    if (plot):
-        plt.show()
+    plt.show()
