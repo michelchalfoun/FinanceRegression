@@ -21,7 +21,7 @@ def compareRatioSlopes(ticker, basisRatio, comparableRatios):
         # Shows the slope of the regresion of the basis ratio for visualization
         basisM = np.polyfit(basisYears, basisRatios, 1)[0]
         print("The slope of", basisRatio, "is:", basisM)
-        difference = float(input("Enter the maximum difference allowed for slop comparison: "))
+        difference = float(input("Enter the maximum difference allowed for slope comparison: "))
         foundRatios = []
 
         for i in comparableRatios:
