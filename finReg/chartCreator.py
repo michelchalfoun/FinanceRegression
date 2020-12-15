@@ -44,7 +44,7 @@ def plotLSquareRegression(ticker, profitabilityRatios, visualizeWithPoints:bool)
 
             # Shows the individual points before the regression if requested
             if(visualizeWithPoints):
-                plt.plot(years, ratios, label=i)
+                plt.plot(years, ratios, "o", label=i)
 
     # Chooses title based on number of passed in ratios
     if (len(profitabilityRatios) == 1):
